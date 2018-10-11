@@ -1,0 +1,11 @@
+<div class="bordered">
+    <h1>Product Info</h1>
+    <ul>
+        <li *ngFor="let product of prodInfo">
+            {{product.Name}}<br>
+            {{product.Price}}<br>
+        </li>
+    </ul>
+    <button (click)="sendMessage()">CLICK</button>
+    {{SomeString}}
+</div>
