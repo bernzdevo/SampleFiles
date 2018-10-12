@@ -1,0 +1,35 @@
+onFileSelect(event) {
+    this.selectedFile = event.target.files[0];
+    let fileReader:FileReader = new FileReader();
+    fileReader.readAsText(this.selectedFile);
+    fileReader.onload = (e) => {
+      let csv:string = fileReader.result.toString();
+
+      let teststr =csv.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)|\n/);
+      //console.log(teststr);
+      let allTextLines=csv.split(/\r|\n|\r/);
+     // console.log(allTextLines);
+      let arr = csv.match(/("[^"]*")|[^;]+/g);
+      //let allTextLines=arr.split(/\r|\n|\r/);
+      //console.log(arr);
+      let headers = allTextLines[0].split(',');
+      let lines=[];
+      for (let i = 0; i < allTextLines.length; i++) {  
+        // split content based on comma  
+        //let data = allTextLines[i].split(',');  
+        let data =allTextLines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+        if (data.length === headers.length) {  
+        let tarr = [];  
+        for (let j = 0; j < headers.length; j++) {  
+        tarr.push(data[j]);  
+        }   
+        // log each row to see output  
+        console.log(tarr);  
+        lines.push(tarr);  
+        }  
+        }  
+        // all rows in the csv file  
+        console.log(">>>>>>>>>>>>>>>>>", lines); 
+        this.csvContent =lines;
+        console.log("COntent",this.csvContent);
+    };
