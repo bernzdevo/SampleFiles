@@ -27,5 +27,7 @@ export class ProductService {
     return this.http.put("http://localhost:61363/api/Products/"+product.id,product);
   }
 
-
+  ReadProductById=(id)=>{
+    return this.http.get("http://localhost:61363/api/Products/"+id);
+  }
 }

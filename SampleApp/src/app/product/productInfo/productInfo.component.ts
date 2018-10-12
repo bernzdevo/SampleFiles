@@ -12,7 +12,7 @@ import {
     styleUrls:['productInfo.component.css']
 })
 export class ProductInfoComponent implements OnInit,OnChanges{
-
+    id:number=5;
     @Input() prodInfo:any[];
     
     @Input() SomeString:string;

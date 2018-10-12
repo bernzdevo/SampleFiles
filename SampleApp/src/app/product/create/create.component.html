@@ -1,0 +1,30 @@
+<div>
+    <h4>Create Product</h4>
+    <!-- TEMPLATE DRIVEN FORM -->
+    <form #productForm="ngForm" (ngSubmit)="productForm.form.valid && SubmitProduct(prodInfo)">
+      <br>Product Name: <input type="text" name="prodName" #prodName="ngModel" required [(ngModel)]="prodInfo.productName">
+      <div *ngIf="prodName.errors && prodName.dirty">Product Name is required </div>
+      <br>Product Price: <input type="text" name="prodPrice" required [(ngModel)]="prodInfo.productPrice">
+      <div>Product Price is required</div>
+      <br>Expiration Date: <input type="date" name="exDate" required [(ngModel)]="prodInfo.expirationDate">
+      <div>Please choose a date</div>
+      <br><input type="submit" value="SUBMIT">
+    </form>
+    <hr>
+    <!-- REACTIVE FORM -->
+    <h4 appSample>Create Product-REACTIVE FORM</h4>
+    <form [formGroup]="prodForm" (ngSubmit)="prodForm.valid && Submit()">
+      <span appSample>Product Name:</span> <input type="text" formControlName="productName">
+      <div class="alert alert-danger" *ngIf="prodForm.controls['productName'].errors?.required && prodForm.controls['productName'].dirty">
+        Product name is required!
+      </div>
+      <div class="alert alert-danger" *ngIf="prodForm.controls['productName'].errors?.maxlength && prodForm.controls['productName'].dirty">
+        Maxlength is 10
+      </div>
+      <br>
+      Product Price: <input type="text" formControlName="productPrice"><br>
+      Expiration Date:<input type="date" formControlName="expirationDate"><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <hr>

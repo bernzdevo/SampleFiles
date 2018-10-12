@@ -6,49 +6,40 @@
 </div> -->
 
 <div>
-  <h4>Product List</h4>
-  <table [mfData]="productList" #mf="mfDataTable" [mfRowsOnPage]="5">
-      <tr>
-        <th><mfDefaultSorter by="id">ID</mfDefaultSorter></th>
-        <th><mfDefaultSorter by="productName">Product Name</mfDefaultSorter></th>
-        <th><mfDefaultSorter by="productPrice">Product Price</mfDefaultSorter></th>
-        <th><mfDefaultSorter by="expirationDate">Expiration Date</mfDefaultSorter></th>
-        <th>Action</th>
-      </tr>
-      <tr *ngFor="let product of mf.data">
-        <td>{{product.id}}</td>
-        <td>{{product.productName}}</td>
-        <td>{{product.productPrice}}</td>
-        <td>{{product.expirationDate}}</td>
-        <td><button (click)="EditProduct(product)">Edit</button></td>
-      </tr>
-      <tr>
-        <td colspan="5">
-          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-        </td>
-      </tr>
+  <h4 i18n>Product List</h4>
+  <a routerLink="create">Create New</a><br>
+  Search: <input type="text" [(ngModel)]="searchT" />
+  <input type="radio" name="filterBy" [(ngModel)]="fby" value="ID" checked="true" />ID
+  <input type="radio" name="filterBy" [(ngModel)]="fby" value="Name" />Name
+  <input type="radio" name="filterBy" [(ngModel)]="fby" value="Price" />Price
+  <table [mfData]="productList | filter:searchT:fby" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <tr>
+      <th>
+        <mfDefaultSorter by="id">ID</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="productName">Product Name</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="productPrice">Product Price</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="expirationDate">Expiration Date</mfDefaultSorter>
+      </th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let product of mf.data">
+      <td>{{product.id}}</td>
+      <td>{{product.productName}}</td>
+      <td>{{product.productPrice | currency:'Php' }}</td>
+      <td>{{product.expirationDate | date:'yyyy/MM/d'}}</td>
+      <td><button (click)="EditProduct(product)">Edit</button></td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+      </td>
+    </tr>
   </table>
 </div>
 <hr>
-<div>
-  <h4>Create Product</h4>
-  <form #productForm="ngForm" (ngSubmit)="productForm.form.valid && SubmitProduct(prodInfo)">
-    <br>Product Name:     <input type="text" name="prodName" #prodName="ngModel" required [(ngModel)]="prodInfo.productName">
-    <div *ngIf="prodName.errors && prodName.dirty">Product Name is required </div>
-    <br>Product Price:    <input type="text" name="prodPrice" required [(ngModel)]="prodInfo.productPrice" >
-    <div>Product Price is required</div>
-    <br>Expiration Date:  <input type="date" name="exDate"    required [(ngModel)]="prodInfo.expirationDate">
-    <div>Please choose a date</div>
-    <br><input type="submit" value="SUBMIT">
-  </form>
-</div>
-<hr>
-<div>
-  <h4>Edit Product</h4>
-  <form #EditProductForm="ngForm" (ngSubmit)="SubmitEditProduct(prodInfoEdit)">
-    <br>Product Name:     <input type="text" name="prodName"  [(ngModel)]="prodInfoEdit.productName">
-    <br>Product Price:    <input type="text" name="prodPrice" [(ngModel)]="prodInfoEdit.productPrice" >
-    <br>Expiration Date:  <input type="text" name="exDate"    [(ngModel)]="prodInfoEdit.expirationDate">
-    <br><input type="submit" value="SUBMIT" [disabled]="productForm.form.invalid">
-  </form>
-</div>

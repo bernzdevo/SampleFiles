@@ -1,0 +1,10 @@
+
+<div>
+  <h4>Edit Product</h4>
+  <form #EditProductForm="ngForm" (ngSubmit)="SubmitEditProduct(prodInfoEdit)">
+    <br>Product Name: <input type="text" name="prodName" [(ngModel)]="prodInfoEdit.productName">
+    <br>Product Price: <input type="text" name="prodPrice" [(ngModel)]="prodInfoEdit.productPrice">
+    <br>Expiration Date: <input type="text" name="exDate" [(ngModel)]="prodInfoEdit.expirationDate">
+    <br><input type="submit" value="SUBMIT" [disabled]="EditProductForm.form.invalid">
+  </form>
+</div>

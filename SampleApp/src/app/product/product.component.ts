@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './interfaces/IProduct';
 import { ProductService } from '../services/product.service';
-
+import { FormControl, FormBuilder, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -15,40 +16,20 @@ export class ProductComponent implements OnInit {
     this.Message = data;
   }
 
-  constructor(private prodService: ProductService) { }
+  constructor(private prodService: ProductService,private router: Router) {
+  }
+
+  searchT:string;
+  fby:string;
   productList: any;
   ngOnInit() {
-    this.GetProducts();
+   this.GetProducts();
   }
-
-  prodInfo = {};
-  SubmitProduct(passedProduct) {
-    console.log("Submitting! " + passedProduct);
-    
-    this.prodService.CreateProduct(passedProduct).subscribe(
-      (success) => {
-        console.log("Success!");
-      },
-      (error) => {
-        console.log("Failed!");
-      });
-    this.GetProducts();
-  }
-
-
-  prodInfoEdit={};
-  EditProduct(passedProduct){
-    console.log("Edit Product!"+passedProduct.productName);
+  prodInfoEdit = {};
+  EditProduct(passedProduct) {
+    console.log("Edit Product!" + passedProduct.productName);
     this.prodInfoEdit = passedProduct;
-  }
-  SubmitEditProduct(editedProduct){
-    console.log("Product Edited!" + editedProduct.id);
-    this.prodService.UpdateProduct(editedProduct).subscribe(
-      (success)=>{ console.log(success);},
-      (error)=>{ console.log(error);}
-    );
-    
-  
+    this.router.navigate(['products/edit',passedProduct.id]);
   }
 
   GetProducts() {
@@ -74,9 +55,4 @@ export class ProductComponent implements OnInit {
       }
     );
   }
-
-
-
-
-
 }

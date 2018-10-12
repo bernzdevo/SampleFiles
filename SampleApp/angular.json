@@ -44,6 +44,13 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "es": {
+              "aot": true,
+              "outputPath": "dist/SampleApp-es/",
+              "i18nFile": "src/app/locale/language.es.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "es"
             }
           }
         },
@@ -55,6 +62,9 @@
           "configurations": {
             "production": {
               "browserTarget": "SampleApp:build:production"
+            },
+            "es":{
+              "browserTarget":"SampleApp:build:es"
             }
           }
         },
