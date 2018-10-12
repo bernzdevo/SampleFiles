@@ -63,8 +63,8 @@
             "production": {
               "browserTarget": "SampleApp:build:production"
             },
-            "es":{
-              "browserTarget":"SampleApp:build:es"
+            "es": {
+              "browserTarget": "SampleApp:build:es"
             }
           }
         },

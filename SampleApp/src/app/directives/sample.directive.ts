@@ -4,7 +4,10 @@ import { Directive, ElementRef } from '@angular/core';
   selector: '[appSample]'
 })
 export class SampleDirective {
-  constructor(private element:ElementRef) { 
-    element.nativeElement.style.backgroundColor='red';
+  constructor(private element: ElementRef) {
+    element.nativeElement.style.backgroundColor = 'red';
   }
 }
+
+
+
